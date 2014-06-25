@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		42944E231914E32B00800A66 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 42944E221914E32B00800A66 /* star.png */; };
+		B5B26385195B6F5000C3EDA7 /* logo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B5B26384195B6F5000C3EDA7 /* logo.atlas */; };
+		B5B26386195B6F5000C3EDA7 /* logo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B5B26384195B6F5000C3EDA7 /* logo.atlas */; };
 		CE067E561910F1E4009331BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE067E551910F1E4009331BC /* Foundation.framework */; };
 		CE067E581910F1E4009331BC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE067E571910F1E4009331BC /* CoreGraphics.framework */; };
 		CE067E5A1910F1E4009331BC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE067E591910F1E4009331BC /* UIKit.framework */; };
@@ -112,6 +114,7 @@
 
 /* Begin PBXFileReference section */
 		42944E221914E32B00800A66 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		B5B26384195B6F5000C3EDA7 /* logo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = logo.atlas; sourceTree = "<group>"; };
 		CE067E521910F1E4009331BC /* Kick the Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kick the Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE067E551910F1E4009331BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CE067E571910F1E4009331BC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -343,6 +346,7 @@
 				CE35C41719501FE000AB25CF /* start.png */,
 				CE35C40F19501FE000AB25CF /* pt_serif.ttf */,
 				CE35C40519501FE000AB25CF /* oranienbaum_regular.ttf */,
+				B5B26384195B6F5000C3EDA7 /* logo.atlas */,
 			);
 			name = "Textes & Fonts";
 			sourceTree = "<group>";
@@ -495,6 +499,7 @@
 				CE35C44219501FE000AB25CF /* restart.png in Resources */,
 				CE35C41E19501FE000AB25CF /* singleplayer_colors.plist in Resources */,
 				CE35C46D1950379200AB25CF /* pause.wav in Resources */,
+				B5B26385195B6F5000C3EDA7 /* logo.atlas in Resources */,
 				CE35C42019501FE000AB25CF /* gradient.png in Resources */,
 				CE067E621910F1E4009331BC /* InfoPlist.strings in Resources */,
 				CE5C3B581953858F0068DE7E /* support.wav in Resources */,
@@ -541,6 +546,7 @@
 				CE35C43B19501FE000AB25CF /* planet_light.png in Resources */,
 				CE35C43719501FE000AB25CF /* planet_bg_4.png in Resources */,
 				CE35C46E1950379200AB25CF /* pause.wav in Resources */,
+				B5B26386195B6F5000C3EDA7 /* logo.atlas in Resources */,
 				CE35C48B1950598100AB25CF /* Main_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

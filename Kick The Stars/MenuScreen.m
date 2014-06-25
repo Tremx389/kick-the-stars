@@ -13,13 +13,26 @@
 }
 
 - (MenuScreen *)initFirstMenuIn:(SKScene *)scene {
-    SKSpriteNode *logo = [self imageFor:LOGO withHeight:75];
+//    SKSpriteNode *logo = [self imageFor:LOGO withHeight:75];
+//    [logo setPosition:CGPointMake(scene.size.width / 2, scene.size.height / 1.32)];
+//    [self addChild:logo];
+
+    SKTextureAtlas *logoAtlas = [SKTextureAtlas atlasNamed:@"logo"];
+    NSArray *logoImages = [[logoAtlas textureNames] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+    NSMutableArray *textureArray = [NSMutableArray new];
+    for (NSString *fileName in logoImages) {
+        SKTexture *texture = [logoAtlas textureNamed:fileName];
+        [textureArray addObject:texture];
+    }
+    SKSpriteNode *logo = [SKSpriteNode spriteNodeWithTexture:[textureArray objectAtIndex:0]];
     [logo setPosition:CGPointMake(scene.size.width / 2, scene.size.height / 1.32)];
+    [logo setSize:CGSizeMake(76 * 992 / 158, 76)];
+//    [logo runAction:[SKAction repeatActionForever:[SKAction animateWithTextures:textureArray timePerFrame:1]]];
     [self addChild:logo];
     
-//    start = [self imageFor:START withHeight:40];
-//    [start setPosition:CGPointMake(scene.size.width / 2, scene.size.height / 2)];
-//    [self addChild:start];
+    start = [self imageFor:START withHeight:40];
+    [start setPosition:CGPointMake(scene.size.width / 2, scene.size.height / 2)];
+    [self addChild:start];
 
     [scene addChild:self];
     return self;
@@ -48,7 +61,7 @@
     switch (button) {
         case LOGO:
             buttonSprite = [SKSpriteNode spriteNodeWithImageNamed:@"logo.png"];
-            r = 992 / 158   ;
+            r = 992 / 158;
             break;
         case START:
             buttonSprite = [SKSpriteNode spriteNodeWithImageNamed:@"start.png"];
