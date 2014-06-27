@@ -27,7 +27,7 @@
     
     // pan
     Planet *initial, *temporarilySelected;
-    CGFloat sX, sY;
+    CGFloat iX, iY, dX, dY, lX, lY;
 }
 
 - (void)viewDidLoad {
@@ -78,6 +78,8 @@
     } else if (gS.stage == IN_GAME) {
         if (distanceBetween(location, gS.pauseButton.position) < 50) {
             [gS pause];
+        } else if (distanceBetween(location, gS.sun.position)) {
+            [gS solarFlare];
         } else {
             Planet *p = [gS getNearestPlanet:location];
             if (p) {
@@ -133,8 +135,8 @@
             if (initial) {
                 [initial setSelected];
             } else {
-                sX = location.x;
-                sY = location.y;
+                iX = location.x;
+                iY = location.y;
             }
             if (initial.planetType != FRIENDLY) {
                 initial = nil;
@@ -166,14 +168,19 @@
                 [initial endSearch];
                 initial = nil;
             }
-        } else if (sX > 0 || sY > 0) {
+        } else if (iX > 0 || iY > 0) {
             if (recogziner.state == UIGestureRecognizerStateChanged) {
-                [gS scroll:CGPointMake(location.x - sX, location.y - sY)];
-                sX = location.x;
-                sY = location.y;
+//                [gS scroll:CGPointMake(location.x - sX, location.y - sY)];
+//                lX = dX - 
+//                float eX = dX, eY = dY;
+//                dX = iX - location.x;
+//                dY = iY - location.y;
+//                [gS moveGalaxyBy:CGPointMake(lX, lY) lastDiff:CGPointMake(dX - eX, dY - eY) initPoint:CGPointMake(iX, iY)];
             } else if (recogziner.state == UIGestureRecognizerStateEnded) {
-                sX = 0;
-                sY = 0;
+                iX = 0;
+                iY = 0;
+                dX = 0;
+                dY = 0;
             }
         }
     }

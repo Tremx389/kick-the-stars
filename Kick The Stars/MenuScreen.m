@@ -10,6 +10,7 @@
 
 @implementation MenuScreen {
     SKSpriteNode *start, *restart;
+    SKSpriteNode *logo, *logo2;
 }
 
 - (MenuScreen *)initFirstMenuIn:(SKScene *)scene {
@@ -24,11 +25,20 @@
         SKTexture *texture = [logoAtlas textureNamed:fileName];
         [textureArray addObject:texture];
     }
-    SKSpriteNode *logo = [SKSpriteNode spriteNodeWithTexture:[textureArray objectAtIndex:0]];
+    
+    logo = [SKSpriteNode spriteNodeWithTexture:[textureArray objectAtIndex:0]];
     [logo setPosition:CGPointMake(scene.size.width / 2, scene.size.height / 1.32)];
     [logo setSize:CGSizeMake(76 * 992 / 158, 76)];
-//    [logo runAction:[SKAction repeatActionForever:[SKAction animateWithTextures:textureArray timePerFrame:1]]];
+    
+//    logo2 = [SKSpriteNode spriteNodeWithTexture:[textureArray objectAtIndex:1]];
+//    [logo2 setPosition:CGPointMake(scene.size.width / 2, scene.size.height / 1.32)];
+//    [logo2 setAlpha:0];
+//    [logo2 setSize:CGSizeMake(76 * 992 / 158, 76)];
+    
+    [self animationLogo];
+    [logo runAction:[SKAction repeatActionForever:[SKAction animateWithTextures:textureArray timePerFrame:1]]];
     [self addChild:logo];
+//    [self addChild:logo2];
     
     start = [self imageFor:START withHeight:40];
     [start setPosition:CGPointMake(scene.size.width / 2, scene.size.height / 2)];
@@ -36,6 +46,84 @@
 
     [scene addChild:self];
     return self;
+}
+
+- (void)animationLogo {
+    SKTextureAtlas *logoAtlas = [SKTextureAtlas atlasNamed:@"logo"];
+    NSArray *logoImages = [[logoAtlas textureNames] sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+    NSMutableArray *textureArray = [NSMutableArray new];
+    for (NSString *fileName in logoImages) {
+        SKTexture *texture = [logoAtlas textureNamed:fileName];
+        [textureArray addObject:texture];
+    }
+//    float duration = 0.3;
+//    [self runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//        float percent = elapsedTime / duration;
+//        [logo setAlpha:1 - percent];
+//        [logo2 setAlpha:percent];
+//    }] completion:^{
+//        [logo setTexture:[textureArray objectAtIndex:1]];
+//        [logo setAlpha:1];
+//        [logo2 setTexture:[textureArray objectAtIndex:2]];
+//        [logo2 setAlpha:0];
+//        [self runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//            float percent = elapsedTime / duration;
+//            [logo setAlpha:1 - percent];
+//            [logo2 setAlpha:percent];
+//        }] completion:^{
+//            [logo setTexture:[textureArray objectAtIndex:2]];
+//            [logo setAlpha:1];
+//            [logo2 setTexture:[textureArray objectAtIndex:3]];
+//            [logo2 setAlpha:0];
+//            [self runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//                float percent = elapsedTime / duration;
+//                [logo setAlpha:1 - percent];
+//                [logo2 setAlpha:percent];
+//            }] completion:^{
+//                [logo setTexture:[textureArray objectAtIndex:3]];
+//                [logo setAlpha:1];
+//                [logo2 setTexture:[textureArray objectAtIndex:4]];
+//                [logo2 setAlpha:0];
+//                [self runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//                    float percent = elapsedTime / duration;
+//                    [logo setAlpha:1 - percent];
+//                    [logo2 setAlpha:percent];
+//                }] completion:^{
+//                    [logo setTexture:[textureArray objectAtIndex:5]];
+//                    [logo setAlpha:1];
+//                    [logo2 setTexture:[textureArray objectAtIndex:6]];
+//                    [logo2 setAlpha:0];
+//                    [self runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//                        float percent = elapsedTime / duration;
+//                        [logo setAlpha:1 - percent];
+//                        [logo2 setAlpha:percent];
+//                    }] completion:^{
+//                        [logo setTexture:[textureArray objectAtIndex:7]];
+//                        [logo setAlpha:1];
+//                        [logo2 setTexture:[textureArray objectAtIndex:8]];
+//                        [logo2 setAlpha:0];
+//                        [self runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//                            float percent = elapsedTime / duration;
+//                            [logo setAlpha:1 - percent];
+//                            [logo2 setAlpha:percent];
+//                        }] completion:^{
+//                            [logo setTexture:[textureArray objectAtIndex:8]];
+//                            [logo setAlpha:1];
+//                            [logo2 setTexture:[textureArray objectAtIndex:9]];
+//                            [logo2 setAlpha:0];
+//                            [self runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//                                float percent = elapsedTime / duration;
+//                                [logo setAlpha:1 - percent];
+//                                [logo2 setAlpha:percent];
+//                            }] completion:^{
+//                                [self animationLogo];
+//                            }];
+//                        }];
+//                    }];
+//                }];
+//            }];
+//        }];
+//    }];
 }
 
 - (MenuScreen *)initPauseMenuIn:(SKScene *)scene {

@@ -8,6 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		42944E231914E32B00800A66 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 42944E221914E32B00800A66 /* star.png */; };
+		B5A018DA195D8A4B00FA6254 /* logo_22.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018CF195D8A4B00FA6254 /* logo_22.png */; };
+		B5A018DB195D8A4B00FA6254 /* logo_22.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018CF195D8A4B00FA6254 /* logo_22.png */; };
+		B5A018DC195D8A4B00FA6254 /* logo_29.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D0195D8A4B00FA6254 /* logo_29.png */; };
+		B5A018DD195D8A4B00FA6254 /* logo_29.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D0195D8A4B00FA6254 /* logo_29.png */; };
+		B5A018DE195D8A4B00FA6254 /* logo_40.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D1195D8A4B00FA6254 /* logo_40.png */; };
+		B5A018DF195D8A4B00FA6254 /* logo_40.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D1195D8A4B00FA6254 /* logo_40.png */; };
+		B5A018E0195D8A4B00FA6254 /* logo_44.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D2195D8A4B00FA6254 /* logo_44.png */; };
+		B5A018E1195D8A4B00FA6254 /* logo_44.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D2195D8A4B00FA6254 /* logo_44.png */; };
+		B5A018E2195D8A4B00FA6254 /* logo_50.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D3195D8A4B00FA6254 /* logo_50.png */; };
+		B5A018E3195D8A4B00FA6254 /* logo_50.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D3195D8A4B00FA6254 /* logo_50.png */; };
+		B5A018E4195D8A4B00FA6254 /* logo_58.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D4195D8A4B00FA6254 /* logo_58.png */; };
+		B5A018E5195D8A4B00FA6254 /* logo_58.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D4195D8A4B00FA6254 /* logo_58.png */; };
+		B5A018E6195D8A4B00FA6254 /* logo_76.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D5195D8A4B00FA6254 /* logo_76.png */; };
+		B5A018E7195D8A4B00FA6254 /* logo_76.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D5195D8A4B00FA6254 /* logo_76.png */; };
+		B5A018E8195D8A4B00FA6254 /* logo_80.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D6195D8A4B00FA6254 /* logo_80.png */; };
+		B5A018E9195D8A4B00FA6254 /* logo_80.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D6195D8A4B00FA6254 /* logo_80.png */; };
+		B5A018EA195D8A4B00FA6254 /* logo_120.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D7195D8A4B00FA6254 /* logo_120.png */; };
+		B5A018EB195D8A4B00FA6254 /* logo_120.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D7195D8A4B00FA6254 /* logo_120.png */; };
+		B5A018EC195D8A4B00FA6254 /* logo_152.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D8195D8A4B00FA6254 /* logo_152.png */; };
+		B5A018ED195D8A4B00FA6254 /* logo_152.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D8195D8A4B00FA6254 /* logo_152.png */; };
+		B5A018EE195D8A4B00FA6254 /* logo_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D9195D8A4B00FA6254 /* logo_1024.png */; };
+		B5A018EF195D8A4B00FA6254 /* logo_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D9195D8A4B00FA6254 /* logo_1024.png */; };
 		B5B26385195B6F5000C3EDA7 /* logo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B5B26384195B6F5000C3EDA7 /* logo.atlas */; };
 		B5B26386195B6F5000C3EDA7 /* logo.atlas in Resources */ = {isa = PBXBuildFile; fileRef = B5B26384195B6F5000C3EDA7 /* logo.atlas */; };
 		CE067E561910F1E4009331BC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE067E551910F1E4009331BC /* Foundation.framework */; };
@@ -33,8 +55,6 @@
 		CE35C41F19501FE000AB25CF /* singleplayer_colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE35C3F819501FE000AB25CF /* singleplayer_colors.plist */; };
 		CE35C42019501FE000AB25CF /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = CE35C3F919501FE000AB25CF /* gradient.png */; };
 		CE35C42119501FE000AB25CF /* gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = CE35C3F919501FE000AB25CF /* gradient.png */; };
-		CE35C42219501FE000AB25CF /* ktf-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE35C3FA19501FE000AB25CF /* ktf-icon.png */; };
-		CE35C42319501FE000AB25CF /* ktf-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CE35C3FA19501FE000AB25CF /* ktf-icon.png */; };
 		CE35C42A19501FE000AB25CF /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CE35C40119501FE000AB25CF /* logo.png */; };
 		CE35C42B19501FE000AB25CF /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CE35C40119501FE000AB25CF /* logo.png */; };
 		CE35C43019501FE000AB25CF /* oranienbaum_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE35C40519501FE000AB25CF /* oranienbaum_regular.ttf */; };
@@ -114,6 +134,17 @@
 
 /* Begin PBXFileReference section */
 		42944E221914E32B00800A66 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		B5A018CF195D8A4B00FA6254 /* logo_22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_22.png; path = icons/logo_22.png; sourceTree = "<group>"; };
+		B5A018D0195D8A4B00FA6254 /* logo_29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_29.png; path = icons/logo_29.png; sourceTree = "<group>"; };
+		B5A018D1195D8A4B00FA6254 /* logo_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_40.png; path = icons/logo_40.png; sourceTree = "<group>"; };
+		B5A018D2195D8A4B00FA6254 /* logo_44.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_44.png; path = icons/logo_44.png; sourceTree = "<group>"; };
+		B5A018D3195D8A4B00FA6254 /* logo_50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_50.png; path = icons/logo_50.png; sourceTree = "<group>"; };
+		B5A018D4195D8A4B00FA6254 /* logo_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_58.png; path = icons/logo_58.png; sourceTree = "<group>"; };
+		B5A018D5195D8A4B00FA6254 /* logo_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_76.png; path = icons/logo_76.png; sourceTree = "<group>"; };
+		B5A018D6195D8A4B00FA6254 /* logo_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_80.png; path = icons/logo_80.png; sourceTree = "<group>"; };
+		B5A018D7195D8A4B00FA6254 /* logo_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_120.png; path = icons/logo_120.png; sourceTree = "<group>"; };
+		B5A018D8195D8A4B00FA6254 /* logo_152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_152.png; path = icons/logo_152.png; sourceTree = "<group>"; };
+		B5A018D9195D8A4B00FA6254 /* logo_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_1024.png; path = icons/logo_1024.png; sourceTree = "<group>"; };
 		B5B26384195B6F5000C3EDA7 /* logo.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = logo.atlas; sourceTree = "<group>"; };
 		CE067E521910F1E4009331BC /* Kick the Stars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Kick the Stars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE067E551910F1E4009331BC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -142,7 +173,6 @@
 		CE35C3F619501FE000AB25CF /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
 		CE35C3F819501FE000AB25CF /* singleplayer_colors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = singleplayer_colors.plist; sourceTree = "<group>"; };
 		CE35C3F919501FE000AB25CF /* gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gradient.png; sourceTree = "<group>"; };
-		CE35C3FA19501FE000AB25CF /* ktf-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ktf-icon.png"; sourceTree = "<group>"; };
 		CE35C40119501FE000AB25CF /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		CE35C40519501FE000AB25CF /* oranienbaum_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = oranienbaum_regular.ttf; sourceTree = "<group>"; };
 		CE35C40619501FE000AB25CF /* planet_bg_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = planet_bg_2.png; sourceTree = "<group>"; };
@@ -333,7 +363,17 @@
 		CE35C45C1950213E00AB25CF /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				CE35C3FA19501FE000AB25CF /* ktf-icon.png */,
+				B5A018CF195D8A4B00FA6254 /* logo_22.png */,
+				B5A018D0195D8A4B00FA6254 /* logo_29.png */,
+				B5A018D1195D8A4B00FA6254 /* logo_40.png */,
+				B5A018D2195D8A4B00FA6254 /* logo_44.png */,
+				B5A018D3195D8A4B00FA6254 /* logo_50.png */,
+				B5A018D4195D8A4B00FA6254 /* logo_58.png */,
+				B5A018D5195D8A4B00FA6254 /* logo_76.png */,
+				B5A018D6195D8A4B00FA6254 /* logo_80.png */,
+				B5A018D7195D8A4B00FA6254 /* logo_120.png */,
+				B5A018D8195D8A4B00FA6254 /* logo_152.png */,
+				B5A018D9195D8A4B00FA6254 /* logo_1024.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -476,28 +516,35 @@
 				CE35C45219501FE000AB25CF /* unit.png in Resources */,
 				CE067E961910F35F009331BC /* sun.sks in Resources */,
 				CE35C43619501FE000AB25CF /* planet_bg_4.png in Resources */,
+				B5A018E0195D8A4B00FA6254 /* logo_44.png in Resources */,
 				CE35C467195035D900AB25CF /* build_planet.wav in Resources */,
 				CE5C3B5B19538B580068DE7E /* deselect.wav in Resources */,
 				CE35C44C19501FE000AB25CF /* start.png in Resources */,
 				CE35C47919503E3400AB25CF /* win.wav in Resources */,
 				CEB36EF81954353400C0DCB3 /* multiplayer_colors.plist in Resources */,
+				B5A018DC195D8A4B00FA6254 /* logo_29.png in Resources */,
 				CE35C44E19501FE000AB25CF /* sun_light.png in Resources */,
 				CE35C42A19501FE000AB25CF /* logo.png in Resources */,
 				CE067E781910F1E5009331BC /* Images.xcassets in Resources */,
+				B5A018E6195D8A4B00FA6254 /* logo_76.png in Resources */,
+				B5A018E4195D8A4B00FA6254 /* logo_58.png in Resources */,
 				CE35C47719503E3400AB25CF /* lose.wav in Resources */,
 				42944E231914E32B00800A66 /* star.png in Resources */,
 				CE35C48A1950598100AB25CF /* Main_iPhone.storyboard in Resources */,
 				CE35C41C19501FE000AB25CF /* bg.jpg in Resources */,
+				B5A018EE195D8A4B00FA6254 /* logo_1024.png in Resources */,
 				CE067E971910F35F009331BC /* spark.png in Resources */,
 				CE35C43819501FE000AB25CF /* planet_bg_5.png in Resources */,
+				B5A018E8195D8A4B00FA6254 /* logo_80.png in Resources */,
+				B5A018DA195D8A4B00FA6254 /* logo_22.png in Resources */,
 				CE35C46A1950374D00AB25CF /* select.wav in Resources */,
-				CE35C42219501FE000AB25CF /* ktf-icon.png in Resources */,
 				CE35C43019501FE000AB25CF /* oranienbaum_regular.ttf in Resources */,
 				CE35C47C19503E4400AB25CF /* hit.wav in Resources */,
 				CE35C43219501FE000AB25CF /* planet_bg_2.png in Resources */,
 				CE35C4881950598100AB25CF /* Main_iPad.storyboard in Resources */,
 				CE35C44219501FE000AB25CF /* restart.png in Resources */,
 				CE35C41E19501FE000AB25CF /* singleplayer_colors.plist in Resources */,
+				B5A018DE195D8A4B00FA6254 /* logo_40.png in Resources */,
 				CE35C46D1950379200AB25CF /* pause.wav in Resources */,
 				B5B26385195B6F5000C3EDA7 /* logo.atlas in Resources */,
 				CE35C42019501FE000AB25CF /* gradient.png in Resources */,
@@ -505,10 +552,13 @@
 				CE5C3B581953858F0068DE7E /* support.wav in Resources */,
 				CE35C473195038C500AB25CF /* conquer.wav in Resources */,
 				CE5C3B52195383950068DE7E /* select_planet.mp3 in Resources */,
+				B5A018EC195D8A4B00FA6254 /* logo_152.png in Resources */,
 				CE35C43A19501FE000AB25CF /* planet_light.png in Resources */,
+				B5A018E2195D8A4B00FA6254 /* logo_50.png in Resources */,
 				CE35C43419501FE000AB25CF /* planet_bg_3.png in Resources */,
 				CE35C470195037DB00AB25CF /* solar_flare.wav in Resources */,
 				CE35C44019501FE000AB25CF /* pt_serif.ttf in Resources */,
+				B5A018EA195D8A4B00FA6254 /* logo_120.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,26 +568,35 @@
 			files = (
 				CE35C41F19501FE000AB25CF /* singleplayer_colors.plist in Resources */,
 				CE35C44D19501FE000AB25CF /* start.png in Resources */,
+				B5A018DF195D8A4B00FA6254 /* logo_40.png in Resources */,
 				CE35C43919501FE000AB25CF /* planet_bg_5.png in Resources */,
 				CE35C47819503E3400AB25CF /* lose.wav in Resources */,
+				B5A018DB195D8A4B00FA6254 /* logo_22.png in Resources */,
 				CE35C44119501FE000AB25CF /* pt_serif.ttf in Resources */,
 				CE5C3B5C19538B580068DE7E /* deselect.wav in Resources */,
+				B5A018E7195D8A4B00FA6254 /* logo_76.png in Resources */,
 				CE35C43119501FE000AB25CF /* oranienbaum_regular.ttf in Resources */,
-				CE35C42319501FE000AB25CF /* ktf-icon.png in Resources */,
 				CE35C47D19503E4400AB25CF /* hit.wav in Resources */,
 				CE35C42B19501FE000AB25CF /* logo.png in Resources */,
+				B5A018EF195D8A4B00FA6254 /* logo_1024.png in Resources */,
 				CE35C42119501FE000AB25CF /* gradient.png in Resources */,
 				CE35C43519501FE000AB25CF /* planet_bg_3.png in Resources */,
+				B5A018ED195D8A4B00FA6254 /* logo_152.png in Resources */,
 				CE35C46B1950374D00AB25CF /* select.wav in Resources */,
 				CE35C41D19501FE000AB25CF /* bg.jpg in Resources */,
+				B5A018E3195D8A4B00FA6254 /* logo_50.png in Resources */,
+				B5A018DD195D8A4B00FA6254 /* logo_29.png in Resources */,
 				CE35C4891950598100AB25CF /* Main_iPad.storyboard in Resources */,
 				CE067E891910F1E5009331BC /* InfoPlist.strings in Resources */,
+				B5A018E5195D8A4B00FA6254 /* logo_58.png in Resources */,
 				CE35C45319501FE000AB25CF /* unit.png in Resources */,
+				B5A018E9195D8A4B00FA6254 /* logo_80.png in Resources */,
 				CE5C3B53195383950068DE7E /* select_planet.mp3 in Resources */,
 				CE35C471195037DB00AB25CF /* solar_flare.wav in Resources */,
 				CE35C43319501FE000AB25CF /* planet_bg_2.png in Resources */,
 				CE35C468195035D900AB25CF /* build_planet.wav in Resources */,
 				CE35C474195038C500AB25CF /* conquer.wav in Resources */,
+				B5A018E1195D8A4B00FA6254 /* logo_44.png in Resources */,
 				CEB36EF91954353400C0DCB3 /* multiplayer_colors.plist in Resources */,
 				CE35C44319501FE000AB25CF /* restart.png in Resources */,
 				CE35C47A19503E3400AB25CF /* win.wav in Resources */,
@@ -548,6 +607,7 @@
 				CE35C46E1950379200AB25CF /* pause.wav in Resources */,
 				B5B26386195B6F5000C3EDA7 /* logo.atlas in Resources */,
 				CE35C48B1950598100AB25CF /* Main_iPhone.storyboard in Resources */,
+				B5A018EB195D8A4B00FA6254 /* logo_120.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

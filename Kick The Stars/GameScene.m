@@ -55,7 +55,7 @@ const float MAX_STAR_SIZE = 50;
         [background setScale:0.5];
         [background setZPosition:-999];
         [self addChild:background];
-
+        
         outer_border = [SKShapeNode node];
         outer_border.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-OUTER_MAP_SIZE, -OUTER_MAP_SIZE, OUTER_MAP_SIZE * 2, OUTER_MAP_SIZE * 2)].CGPath;
         outer_border.lineWidth = 0.1;
@@ -109,7 +109,7 @@ const float MAX_STAR_SIZE = 50;
 }
 
 - (void)drawStarMin:(float)min max:(float)max {
-    float duration = 1;
+    float duration = 2;
     float size = min + (1 - EaseOutCirc(randomFloat(0, 1))) * (max - min);
     float fAlpha = randomFloat(0, 1);
     
@@ -261,8 +261,47 @@ const float MAX_STAR_SIZE = 50;
     }
 }
 
+- (void)moveGalaxyBy:(CGPoint)center diff:(CGPoint)diff initPoint:(CGPoint)initPoint {
+//    _sun.position = CGPointMake(<#CGFloat x#>, <#CGFloat y#>)
+//    _sun.position = CGPointMake(inner_border.position.x + diff.x, inner_border.position.y + diff.y);
+//    outer_border.position = CGPointMake(outer_border.position.x + diff.x, outer_border.position.y + diff.y);
+//    inner_border.position = CGPointMake(inner_border.position.x + diff.x, inner_border.position.y + diff.y);
+//    for (Unit *unit in units) {
+//        unit.position = CGPointMake(unit.position.x + diff.x, unit.position.y + diff.y);
+//    }
+//    for (Planet *planet in _planets) {
+//        planet.position = CGPointMake(planet.position.x + diff.x, planet.position.y + diff.y);
+//    }
+//    for (SKSpriteNode *star in stars) {
+//        CGPoint nextPos = CGPointMake(star.position.x + diff.x * star.size.width / MAX_STAR_SIZE * STAR_DISTANCE, star.position.y + diff.y * star.size.width / MAX_STAR_SIZE * STAR_DISTANCE);
+//        if (nextPos.x > self.size.width) {
+//            nextPos = CGPointMake(nextPos.x - self.size.width, nextPos.y);
+//        } else if (nextPos.x < 0) {
+//            nextPos = CGPointMake(nextPos.x + self.size.width, nextPos.y);
+//        }
+//        if (nextPos.y > self.size.height) {
+//            nextPos = CGPointMake(nextPos.x, nextPos.y - self.size.height);
+//        } else if (nextPos.y < 0) {
+//            nextPos = CGPointMake(nextPos.x, nextPos.y + self.size.height);
+//        }
+//        
+//        star.position = nextPos;
+//    }
+}
+
 - (void)scroll:(CGPoint)diff {
+//    [self moveElementsBy:<#(CGPoint)#> withDuration:<#(float)#>]
+//    float maxScrollOut = 100;
+//    float dBottom = _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
+//    if (dBottom < 0 && dBottom >= -maxScrollOut) {
+//        diff.y -= (_sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN) * ;
+//    }
+//    if (dBottom > MAP_MARGIN) {
+//        NSLog(@"%f", EaseOutCirc(1 - dBottom / maxScrollOut));
+//        diff.y -= _sun.position.y - OUTER_MAP_SIZE - (EaseOutCirc(dBottom / maxScrollOut) * maxScrollOut) + diff.y - MAP_MARGIN;
+//    }
 //    if (_sun.position.y - OUTER_MAP_SIZE + diff.y < MAP_MARGIN) {
+//        float d = _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN / maxScrollOut;
 //        diff.y -= _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
 //    }
 //    if (self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y < MAP_MARGIN) {
@@ -274,8 +313,8 @@ const float MAX_STAR_SIZE = 50;
 //    if (self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x < MAP_MARGIN) {
 //        diff.x += self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x - MAP_MARGIN;
 //    }
-    [self moveElementsBy:diff withDuration:0];
-    [self moveStarsBy:diff withDuration:0];
+//    [self moveElementsBy:diff withDuration:0];
+//    [self moveStarsBy:diff withDuration:0];
 }
 
 - (void)initPauseButton {
@@ -504,6 +543,21 @@ const float MAX_STAR_SIZE = 50;
         
         [_menu removeFromParent];
     }];
+}
+
+- (void)solarFlare {
+//    float duration = 2;
+//    [root runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//        NSNumber *radius = [NSNumber numberWithFloat:(elapsedTime/duration) * OUTER_MAP_SIZE];
+//        [bumpDIstortion setValue:radius forKey:kCIInputRadiusKey];
+//    }] completion:^{
+//        [root runAction:[SKAction customActionWithDuration:0.5 actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//            float percent = 0.5 / elapsedTime;
+//            NSNumber *radius = [NSNumber numberWithFloat:-(0.5 - 0.5 / percent)];
+//            [bumpDIstortion setValue:radius forKey:kCIInputScaleKey];
+//            [bumpDIstortion setValue:@0.0 forKey:kCIInputRadiusKey];
+//        }]];
+//    }];
 }
 
 - (void)restart {

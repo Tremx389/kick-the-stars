@@ -38,9 +38,12 @@ typedef enum {
 - (void)deselectAllPlanets;
 - (int)numOf:(PlanetType)planetType;
 
+- (void)moveGalaxyBy:(CGPoint)center diff:(CGPoint)diff initPoint:(CGPoint)initPoint;
+
 - (void)deployUnits;
 - (void)scroll:(CGPoint)diff;
 - (void)stageAlert;
+- (void)solarFlare;
 
 - (void)pause;
 - (void)start;
