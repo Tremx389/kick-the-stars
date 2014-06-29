@@ -75,6 +75,8 @@ const float MAX_STAR_SIZE = 50;
         [_sun addChild:sunLight];
         [self addChild:_sun];
         
+        self.backgroundColor = [UIColor blueColor];
+        
         for (int i = 0; i < 70; i++) {
             [self drawStarMin:4 max:6];
         }
@@ -300,21 +302,21 @@ const float MAX_STAR_SIZE = 50;
 //        NSLog(@"%f", EaseOutCirc(1 - dBottom / maxScrollOut));
 //        diff.y -= _sun.position.y - OUTER_MAP_SIZE - (EaseOutCirc(dBottom / maxScrollOut) * maxScrollOut) + diff.y - MAP_MARGIN;
 //    }
-//    if (_sun.position.y - OUTER_MAP_SIZE + diff.y < MAP_MARGIN) {
+    if (_sun.position.y - OUTER_MAP_SIZE + diff.y < MAP_MARGIN) {
 //        float d = _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN / maxScrollOut;
-//        diff.y -= _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
-//    }
-//    if (self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y < MAP_MARGIN) {
-//        diff.y += self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y - MAP_MARGIN;
-//    }
-//    if (_sun.position.x - OUTER_MAP_SIZE + diff.x < MAP_MARGIN) {
-//        diff.x -= _sun.position.x - OUTER_MAP_SIZE + diff.x - MAP_MARGIN;
-//    }
-//    if (self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x < MAP_MARGIN) {
-//        diff.x += self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x - MAP_MARGIN;
-//    }
-//    [self moveElementsBy:diff withDuration:0];
-//    [self moveStarsBy:diff withDuration:0];
+        diff.y -= _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
+    }
+    if (self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y < MAP_MARGIN) {
+        diff.y += self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y - MAP_MARGIN;
+    }
+    if (_sun.position.x - OUTER_MAP_SIZE + diff.x < MAP_MARGIN) {
+        diff.x -= _sun.position.x - OUTER_MAP_SIZE + diff.x - MAP_MARGIN;
+    }
+    if (self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x < MAP_MARGIN) {
+        diff.x += self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x - MAP_MARGIN;
+    }
+    [self moveElementsBy:diff withDuration:0];
+    [self moveStarsBy:diff withDuration:0];
 }
 
 - (void)initPauseButton {
@@ -449,7 +451,7 @@ const float MAX_STAR_SIZE = 50;
     if (self.target) {
         float usage = 0.75;
         for (Planet *planet in _planets) {
-            if (planet.selected == YES && planet != self.target) {
+            if (planet.selected == YES && planet.planetType == FRIENDLY && planet != self.target) {
                 int points = planet.points * usage;
                 for (NSInteger i = colorLevels.count - 1; i >= 0; i--) {
                     NSArray *a = [colorLevels objectAtIndex:i];

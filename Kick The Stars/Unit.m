@@ -26,13 +26,15 @@
     
     float scale = 2.5 + level;
     self.radius = scale;
-    CGPathMoveToPoint(path, NULL, 0, scale);
-    CGPathAddLineToPoint(path, NULL, -scale, -scale);
-    CGPathAddLineToPoint(path, NULL, scale, -scale);
+    CGPathMoveToPoint(path, NULL, 0, scale * 0.85);
+    CGPathAddLineToPoint(path, NULL, -scale / 2, -scale / 2);
+        CGPathAddLineToPoint(path, NULL, 0, -scale);
+    CGPathAddLineToPoint(path, NULL, scale / 2, -scale / 2);
     CGPathCloseSubpath(path);
 
     SKShapeNode *unit = [SKShapeNode node];
-    unit.lineWidth = 0.25;
+    unit.antialiased = NO;
+    unit.lineWidth = 0.5;
     unit.strokeColor = c;
     unit.path = path;
     [self addChild:unit];

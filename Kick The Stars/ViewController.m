@@ -78,7 +78,7 @@
     } else if (gS.stage == IN_GAME) {
         if (distanceBetween(location, gS.pauseButton.position) < 50) {
             [gS pause];
-        } else if (distanceBetween(location, gS.sun.position)) {
+        } else if (distanceBetween(location, gS.sun.position) < SUN_CATCHMENT_AREA) {
             [gS solarFlare];
         } else {
             Planet *p = [gS getNearestPlanet:location];
@@ -170,8 +170,10 @@
             }
         } else if (iX > 0 || iY > 0) {
             if (recogziner.state == UIGestureRecognizerStateChanged) {
-//                [gS scroll:CGPointMake(location.x - sX, location.y - sY)];
-//                lX = dX - 
+                [gS scroll:CGPointMake(location.x - iX, location.y - iY)];
+                iX = location.x;
+                iY = location.y;
+//                lX = dX -
 //                float eX = dX, eY = dY;
 //                dX = iX - location.x;
 //                dY = iY - location.y;
