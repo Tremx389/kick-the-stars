@@ -791,9 +791,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kick The Stars/Kick the Stars-Prefix.pch";
 				INFOPLIST_FILE = "Kick The Stars/Kick the Stars-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "Kick the Stars";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "465DB4D8-9A3E-4CEA-839E-54CCB6FF2A52";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -808,9 +810,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Kick The Stars/Kick the Stars-Prefix.pch";
 				INFOPLIST_FILE = "Kick The Stars/Kick the Stars-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "Kick the Stars";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "465DB4D8-9A3E-4CEA-839E-54CCB6FF2A52";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
