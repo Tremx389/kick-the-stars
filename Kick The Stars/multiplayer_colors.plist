@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Blue (Star Command)</key>
+        <string>#007bbb</string>
+        <key>Red (YouTube)</key>
+        <string>#c4302b</string>
+        <key>Green (Islamic)</key>
+        <string>#009000</string>
+        <key>Violet (Flirt)</key>
+        <string>#a2006d</string>
+    </dict>
+</plist>
