@@ -27,7 +27,7 @@
     
     // pan
     Planet *initial, *temporarilySelected;
-    CGFloat iX, iY, dX, dY, lX, lY;
+    CGFloat iX, iY;
 }
 
 - (void)viewDidLoad {
@@ -35,7 +35,7 @@
     
     SKView *skView = (SKView *)self.view;
     skView.showsFPS = YES;
-//    skView.showsPhysics = YES;
+    skView.showsPhysics = YES;
 //    skView.showsNodeCount = YES;
 //    skView.showsDrawCount = YES;
     
@@ -44,6 +44,8 @@
     [gS.physicsWorld setGravity:CGVectorMake(0, 0)];
     [gS.physicsWorld setSpeed:0.0389];
     [skView presentScene:gS];
+    
+    gS.backgroundColor = [UIColor blackColor];
     
     [gS.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)]];
     [gS.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)]];
@@ -113,7 +115,7 @@
         if (recogziner.state == UIGestureRecognizerStateBegan) {
             float d = distanceBetween(location, gS.sun.position);
             if (gS.points > 0 && d > SUN_CATCHMENT_AREA) {
-                if (d < OUTER_MAP_SIZE && ([gS numOf:INDEPENDENT] == 0 || d > INNER_MAP_SIZE)) {
+                if (d < OUTER_MAP_SIZE/* && ([gS numOf:INDEPENDENT] == 0 || d > INNER_MAP_SIZE)*/) {
                     building = [gS buildFriendlyPlanetIn:location];
                 } else {
                     [gS stageAlert];
@@ -135,6 +137,7 @@
             if (initial) {
                 [initial setSelected];
             } else {
+                [gS startScroll:location];
                 iX = location.x;
                 iY = location.y;
             }
@@ -170,19 +173,11 @@
             }
         } else if (iX > 0 || iY > 0) {
             if (recogziner.state == UIGestureRecognizerStateChanged) {
-                [gS scroll:CGPointMake(location.x - iX, location.y - iY)];
-                iX = location.x;
-                iY = location.y;
-//                lX = dX -
-//                float eX = dX, eY = dY;
-//                dX = iX - location.x;
-//                dY = iY - location.y;
-//                [gS moveGalaxyBy:CGPointMake(lX, lY) lastDiff:CGPointMake(dX - eX, dY - eY) initPoint:CGPointMake(iX, iY)];
+                [gS scroll:location];
             } else if (recogziner.state == UIGestureRecognizerStateEnded) {
+                [gS endScroll];
                 iX = 0;
                 iY = 0;
-                dX = 0;
-                dY = 0;
             }
         }
     }

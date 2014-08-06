@@ -120,6 +120,10 @@
 		CEB504DE19144FB6006F88F2 /* UIColor+HEX.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB504DD19144FB6006F88F2 /* UIColor+HEX.m */; };
 		CEB6941D19519A78002717CF /* MenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB6941C19519A78002717CF /* MenuScreen.m */; };
 		CEB6941E19519A78002717CF /* MenuScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB6941C19519A78002717CF /* MenuScreen.m */; };
+		E24D18F9198E111000A0AC9D /* HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D18F8198E111000A0AC9D /* HUD.m */; };
+		E24D18FA198E111000A0AC9D /* HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D18F8198E111000A0AC9D /* HUD.m */; };
+		E2BDEB30198D91DE002B3CEE /* bg_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2BDEB2F198D91DE002B3CEE /* bg_2.jpg */; };
+		E2BDEB31198D91DE002B3CEE /* bg_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E2BDEB2F198D91DE002B3CEE /* bg_2.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,6 +218,9 @@
 		CEB6941B19519A78002717CF /* MenuScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScreen.h; sourceTree = "<group>"; };
 		CEB6941C19519A78002717CF /* MenuScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScreen.m; sourceTree = "<group>"; };
 		CECBC30E193343B30064B1B9 /* MathLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathLibrary.h; sourceTree = "<group>"; };
+		E24D18F7198E111000A0AC9D /* HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUD.h; sourceTree = "<group>"; };
+		E24D18F8198E111000A0AC9D /* HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUD.m; sourceTree = "<group>"; };
+		E2BDEB2F198D91DE002B3CEE /* bg_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_2.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +290,8 @@
 				CE067E701910F1E4009331BC /* ViewController.m */,
 				CE067E721910F1E4009331BC /* GameScene.h */,
 				CE067E731910F1E4009331BC /* GameScene.m */,
+				E24D18F7198E111000A0AC9D /* HUD.h */,
+				E24D18F8198E111000A0AC9D /* HUD.m */,
 				CE067E771910F1E5009331BC /* Images.xcassets */,
 				CE067E5E1910F1E4009331BC /* Supporting Files */,
 			);
@@ -332,6 +341,7 @@
 				CE35C45D1950214D00AB25CF /* Textes & Fonts */,
 				CE067E951910F35F009331BC /* spark.png */,
 				42944E221914E32B00800A66 /* star.png */,
+				E2BDEB2F198D91DE002B3CEE /* bg_2.jpg */,
 				CE35C3F619501FE000AB25CF /* bg.jpg */,
 				CE35C3F919501FE000AB25CF /* gradient.png */,
 			);
@@ -538,6 +548,7 @@
 				B5A018E8195D8A4B00FA6254 /* logo_80.png in Resources */,
 				B5A018DA195D8A4B00FA6254 /* logo_22.png in Resources */,
 				CE35C46A1950374D00AB25CF /* select.wav in Resources */,
+				E2BDEB30198D91DE002B3CEE /* bg_2.jpg in Resources */,
 				CE35C43019501FE000AB25CF /* oranienbaum_regular.ttf in Resources */,
 				CE35C47C19503E4400AB25CF /* hit.wav in Resources */,
 				CE35C43219501FE000AB25CF /* planet_bg_2.png in Resources */,
@@ -570,6 +581,7 @@
 				CE35C44D19501FE000AB25CF /* start.png in Resources */,
 				B5A018DF195D8A4B00FA6254 /* logo_40.png in Resources */,
 				CE35C43919501FE000AB25CF /* planet_bg_5.png in Resources */,
+				E2BDEB31198D91DE002B3CEE /* bg_2.jpg in Resources */,
 				CE35C47819503E3400AB25CF /* lose.wav in Resources */,
 				B5A018DB195D8A4B00FA6254 /* logo_22.png in Resources */,
 				CE35C44119501FE000AB25CF /* pt_serif.ttf in Resources */,
@@ -644,6 +656,7 @@
 				CE067E741910F1E4009331BC /* GameScene.m in Sources */,
 				CE067E641910F1E4009331BC /* main.m in Sources */,
 				CE35C4631950299F00AB25CF /* Robot.m in Sources */,
+				E24D18F9198E111000A0AC9D /* HUD.m in Sources */,
 				CE067E681910F1E4009331BC /* AppDelegate.m in Sources */,
 				CE35C43C19501FE000AB25CF /* Planet.m in Sources */,
 			);
@@ -654,6 +667,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB36EFD19543AD300C0DCB3 /* NSArray+RandomObject.m in Sources */,
+				E24D18FA198E111000A0AC9D /* HUD.m in Sources */,
 				CEB6941E19519A78002717CF /* MenuScreen.m in Sources */,
 				CE35C43F19501FE000AB25CF /* PlistManager.m in Sources */,
 				CE35C43D19501FE000AB25CF /* Planet.m in Sources */,

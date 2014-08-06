@@ -27,15 +27,21 @@ const float BUILD_WAIT = 0.01;
 
 const float MAX_STAR_SIZE = 50;
 
+const float SCROLL_SMOOTH = 250;
+
 @implementation GameScene {
-    SKShapeNode *inner_border, *outer_border;
+    SKShapeNode /**inner_border, */*outer_border;
     SKNode *pauseLine1, *pauseLine2;
     SKLabelNode *scoreLabel;
     
     NSMutableArray *stars, *units;
     NSArray *planetSkins;
     
+    float scrollSunX, scrollSunY, scrollFirstX, scrollFirstY;
+    
     Robot *eR;
+    
+    CIFilter *bumpDistortion;
 }
 
 - (id)initWithSize:(CGSize)size {
@@ -49,12 +55,50 @@ const float MAX_STAR_SIZE = 50;
                                              @"planet_bg_3",
                                              @"planet_bg_4",
                                              @"planet_bg_5", nil];
+    
+//    root = [[SKNode alloc] init];
     if (self = [super initWithSize:size]) {
+        SKEffectNode *node = [SKEffectNode node];
+        bumpDistortion = [CIFilter filterWithName:@"CIHoleDistortion"];    // 1
+//        [bumpDistortion setValue:[CIVector vectorWithX:self.size.width/2 Y:self.siz] forKey:kCIInputCenterKey];
+//        [bumpDistortion setDefaults];                                                // 2
+//        [bumpDistortion setValue: result forKey: kCIInputImageKey];                    // 3
+        [bumpDistortion setValue:@100.0f forKey:kCIInputRadiusKey];                // 4
+//        [bumpDistortion setValue:@1.0f forKey:kCIInputScaleKey];                   // 5
+        
+//        result = [bumpDistortion valueForKey: kCIOutputImageKey];
+        
+//        CIFilter *blur = [CIFilter filterWithName:@"CIGaussianBlur" keysAndValues:@"inputRadius", @3.0f, nil];
+        
+        [node setFilter:bumpDistortion];
+        [self setRoot:node];
+        [node setShouldCenterFilter:NO];
+        [node setShouldEnableEffects:YES];
+        [self addChild:_root];
+        
+        float duration = 30;
+//        [_root runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//            NSNumber *radius = [NSNumber numberWithFloat:(elapsedTime/duration) * 3.0];
+////            [bumpDistortion setValue:radius forKey:kCIInputRadiusKey];
+//            [bumpDistortion setValue:radius forKey:kCIInputScaleKey];
+//            [bumpDistortion setValue: [CIVector vectorWithX:300 Y:150] forKey: kCIInputCenterKey];
+//        }]];
+        
         SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"bg.jpg"];
         [background setPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))];
-        [background setScale:0.5];
+        [background setScale:0.8];
         [background setZPosition:-999];
-        [self addChild:background];
+        [_root addChild:background];
+        
+        for (int i = 0; i < 70; i++) {
+            [self drawStarMin:2 max:7 flashing:0.7];
+        }
+        for (int i = 0; i < 15; i++) {
+            [self drawStarMin:7 max:10 flashing:0.4];
+        }
+        for (int i = 0; i < 3; i++) {
+            [self drawStarMin:18 max:22 flashing:0.2];
+        }
         
         outer_border = [SKShapeNode node];
         outer_border.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-OUTER_MAP_SIZE, -OUTER_MAP_SIZE, OUTER_MAP_SIZE * 2, OUTER_MAP_SIZE * 2)].CGPath;
@@ -62,32 +106,18 @@ const float MAX_STAR_SIZE = 50;
         outer_border.strokeColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.2];
         [self addChild:outer_border];
         
-        inner_border = [SKShapeNode node];
-        inner_border.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-INNER_MAP_SIZE, -INNER_MAP_SIZE, INNER_MAP_SIZE * 2, INNER_MAP_SIZE * 2)].CGPath;
-        inner_border.lineWidth = 0.1;
-        inner_border.strokeColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-        inner_border.alpha = 0.1;
-        [self addChild:inner_border];
+//        inner_border = [SKShapeNode node];
+//        inner_border.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-INNER_MAP_SIZE, -INNER_MAP_SIZE, INNER_MAP_SIZE * 2, INNER_MAP_SIZE * 2)].CGPath;
+//        inner_border.lineWidth = 0.1;
+//        inner_border.strokeColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
+//        inner_border.alpha = 0.1;
+//        [self addChild:inner_border];
         
         _sun = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"sun" ofType:@"sks"]];
         SKSpriteNode *sunLight = [SKSpriteNode spriteNodeWithImageNamed:@"sun_light.png"];
         [sunLight setAlpha:0.5];
         [_sun addChild:sunLight];
-        [self addChild:_sun];
-        
-        self.backgroundColor = [UIColor blueColor];
-        
-        for (int i = 0; i < 70; i++) {
-            [self drawStarMin:4 max:6];
-        }
-        
-        for (int i = 0; i < 15; i++) {
-            [self drawStarMin:7 max:12];
-        }
-        
-        for (int i = 0; i < 3; i++) {
-            [self drawStarMin:14 max:18];
-        }
+        [_root addChild:_sun];
 
         [self initPauseButton];
 //        [self initMenu];
@@ -110,20 +140,20 @@ const float MAX_STAR_SIZE = 50;
     return self;
 }
 
-- (void)drawStarMin:(float)min max:(float)max {
+- (void)drawStarMin:(float)min max:(float)max flashing:(float)flashing {
     float duration = 2;
     float size = min + (1 - EaseOutCirc(randomFloat(0, 1))) * (max - min);
     float fAlpha = randomFloat(0, 1);
     
     SKSpriteNode *star = [SKSpriteNode spriteNodeWithImageNamed:@"star.png"];
-    [star setSize:CGSizeMake(size, size)];
+    [star setSize:CGSizeMake(size * 2, size * 2)];
     [star setPosition:CGPointMake(randomFloat(0, self.frame.size.width), randomFloat(0, self.frame.size.height))];
     [star setAlpha:fAlpha];
-    [star runAction:[SKAction sequence:@[[SKAction fadeAlphaTo:(size / MAX_STAR_SIZE) duration:duration * fAlpha],
-                                         [SKAction repeatActionForever:[SKAction group:@[[SKAction sequence:@[[SKAction fadeAlphaTo:0.9 * (size / max) duration:duration / 2], [SKAction fadeAlphaTo:(size / MAX_STAR_SIZE) duration:duration / 2]]],
+    [star runAction:[SKAction sequence:@[[SKAction fadeAlphaTo:1 duration:duration * fAlpha],
+                                         [SKAction repeatActionForever:[SKAction group:@[[SKAction sequence:@[[SKAction fadeAlphaTo:1 - flashing duration:duration / 2], [SKAction fadeAlphaTo:1 duration:duration / 2]]],
                                                                                          [SKAction sequence:@[[SKAction scaleTo:1 * ((size / max) / (size / max)) duration:duration / 2], [SKAction scaleTo:1 duration:duration / 2]]]]]]]]];
     [stars addObject:star];
-    [self addChild:star];
+    [_root addChild:star];
 }
 
 - (Planet *)buildFriendlyPlanetIn:(CGPoint)location {
@@ -131,7 +161,7 @@ const float MAX_STAR_SIZE = 50;
     [planet createIn:location as:FRIENDLY skin:[planetSkins randomString]];
     [planet setLightDistance:distanceBetween(_sun.position, planet.position) radians:radiansBetween(_sun.position, planet.position)];
     [_planets addObject:planet];
-    [self addChild:planet];
+    [_root addChild:planet];
     
     [planet runAction:[SKAction group:@[[SKAction customActionWithDuration:BUILD_DURATION - BUILD_WAIT actionBlock:^(SKNode *node, CGFloat elapsedTime){
         float p1 = (elapsedTime + BUILD_WAIT) / BUILD_DURATION;
@@ -149,7 +179,7 @@ const float MAX_STAR_SIZE = 50;
 }
 
 - (void)buildIndependentPlanets {
-    float step = INNER_MAP_SIZE / (INDEPENDENT_PLANETS + 1);
+    float step = OUTER_MAP_SIZE / (INDEPENDENT_PLANETS + 1);
     for (int i = 0; i < INDEPENDENT_PLANETS; i++) {
         float scale = powf(randomFloat(0.25, 1), 2.5);
         scale = scale < 0.25 ? 0.25 : scale;
@@ -160,11 +190,11 @@ const float MAX_STAR_SIZE = 50;
         [independentPlanet setScaleTo:scale];
         [independentPlanet setPointsTo:150 * scale];
         [_planets addObject:independentPlanet];
-        [self addChild:independentPlanet];
+        [_root addChild:independentPlanet];
         
         float startAngle = randomFloat(0, 180 / M_PI);
         float distance_r = (step) * (i + 1);
-        float duration = 210 * distance_r / INNER_MAP_SIZE;
+        float duration = 210 * distance_r / OUTER_MAP_SIZE;
         CGPathRef path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(0, 0) radius:distance_r startAngle:startAngle endAngle:M_PI * 2 + startAngle clockwise:1].CGPath;
         [independentPlanet runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction followPath:path asOffset:YES orientToPath:NO duration:duration], [SKAction customActionWithDuration:0 actionBlock:^(SKNode *node, CGFloat elapsedTime){
             independentPlanet.position = _sun.position;
@@ -173,7 +203,7 @@ const float MAX_STAR_SIZE = 50;
 }
 
 - (Planet *)getNearestPlanet:(CGPoint)location {
-    float distance = MAX_RADIUS / 2;
+    float distance = MAX_RADIUS * 2 / 3;
     Planet *nearestPlanet;
     for (Planet *planet in _planets) {
         float d = distanceBetween(location, planet.position);
@@ -246,14 +276,14 @@ const float MAX_STAR_SIZE = 50;
         
         [_sun runAction:action];
         [outer_border runAction:action];
-        [inner_border runAction:action];
+//        [inner_border runAction:action];
         for (Planet *planet in _planets) {
             [planet runAction:action];
         }
     } else {
-        _sun.position = CGPointMake(inner_border.position.x + diff.x, inner_border.position.y + diff.y);
+        _sun.position = CGPointMake(outer_border.position.x + diff.x, outer_border.position.y + diff.y);
         outer_border.position = CGPointMake(outer_border.position.x + diff.x, outer_border.position.y + diff.y);
-        inner_border.position = CGPointMake(inner_border.position.x + diff.x, inner_border.position.y + diff.y);
+//        inner_border.position = CGPointMake(inner_border.position.x + diff.x, inner_border.position.y + diff.y);
         for (Unit *unit in units) {
             unit.position = CGPointMake(unit.position.x + diff.x, unit.position.y + diff.y);
         }
@@ -291,33 +321,103 @@ const float MAX_STAR_SIZE = 50;
 //    }
 }
 
-- (void)scroll:(CGPoint)diff {
-//    [self moveElementsBy:<#(CGPoint)#> withDuration:<#(float)#>]
-//    float maxScrollOut = 100;
-//    float dBottom = _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
-//    if (dBottom < 0 && dBottom >= -maxScrollOut) {
-//        diff.y -= (_sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN) * ;
+- (void)startScroll:(CGPoint)location {
+    scrollSunX = self.sun.position.x;
+    scrollSunY = self.sun.position.y;
+    scrollFirstX = location.x;
+    scrollFirstY = location.y;
+}
+
+- (void)scroll:(CGPoint)location {
+    CGPoint diff = CGPointMake(scrollSunX - _sun.position.x + location.x - scrollFirstX,
+                               scrollSunY - _sun.position.y + location.y - scrollFirstY);
+//    float diffB = _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
+//    float diffT = self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y - MAP_MARGIN;
+//    float diffL = _sun.position.x - OUTER_MAP_SIZE + diff.x - MAP_MARGIN;
+//    float diffR = self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x - MAP_MARGIN;
+//    if (diffB < 0) {
+//        diff.y -= diffB;
+//        if (ABS(diffB) < SCROLL_SMOOTH) {
+//            diff.y -= powf(EaseOutCubic((ABS(diffB) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
+//        } else {
+//            diff.y -= SCROLL_SMOOTH;
+//        }
+//    } else if (diffT < 0) {
+//        diff.y += diffT;
+//        if (ABS(diffT) < SCROLL_SMOOTH) {
+//            diff.y += powf(EaseOutCubic((ABS(diffT) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
+//        } else {
+//            diff.y += SCROLL_SMOOTH;
+//        }
 //    }
-//    if (dBottom > MAP_MARGIN) {
-//        NSLog(@"%f", EaseOutCirc(1 - dBottom / maxScrollOut));
-//        diff.y -= _sun.position.y - OUTER_MAP_SIZE - (EaseOutCirc(dBottom / maxScrollOut) * maxScrollOut) + diff.y - MAP_MARGIN;
+//    if (diffL < 0) {
+//        diff.x -= diffL;
+//        if (ABS(diffL) < SCROLL_SMOOTH) {
+//            diff.x -= powf(EaseOutCubic((ABS(diffL) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
+//        } else {
+//            diff.x -= SCROLL_SMOOTH;
+//        }
+//    } else if (diffR < 0) {
+//        diff.x += diffR;
+//        if (ABS(diffR) < SCROLL_SMOOTH) {
+//            diff.x += powf(EaseOutCubic((ABS(diffR) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
+//        } else {
+//            diff.x += SCROLL_SMOOTH;
+//        }
 //    }
-    if (_sun.position.y - OUTER_MAP_SIZE + diff.y < MAP_MARGIN) {
-//        float d = _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN / maxScrollOut;
-        diff.y -= _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
-    }
-    if (self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y < MAP_MARGIN) {
-        diff.y += self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y - MAP_MARGIN;
-    }
-    if (_sun.position.x - OUTER_MAP_SIZE + diff.x < MAP_MARGIN) {
-        diff.x -= _sun.position.x - OUTER_MAP_SIZE + diff.x - MAP_MARGIN;
-    }
-    if (self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x < MAP_MARGIN) {
-        diff.x += self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x - MAP_MARGIN;
-    }
+//    
     [self moveElementsBy:diff withDuration:0];
     [self moveStarsBy:diff withDuration:0];
+    
+//    CIAttributeTypePosition
+//    CGAffineTransform *moveTransform = CGAffineTransformMakeTranslation(diff.x, diff.y);
+    
+    
+    CIFilter *move = [CIFilter filterWithName:@"CIAffineTransform"];
+//    [move setValue:[CIVector vectorWithX:_sun.position.x Y:_sun.position.y] forKey:kCIInputCenterKey];
+//    [move setValue:clouds forKey:@"inputImage"];
+//    [move setValue:moveTransform forKey:@"inputTransform"];
+//    clouds = [move valueForKey:@"outputImage"];
+    
+    [bumpDistortion setValue:[CIVector vectorWithX:_sun.position.x * 3.5 Y:_sun.position.y * 3.5] forKey:kCIInputCenterKey];
 }
+
+- (void)endScroll {
+    float diffB = _sun.position.y - OUTER_MAP_SIZE - MAP_MARGIN;
+    float diffT = self.size.height - _sun.position.y - OUTER_MAP_SIZE - MAP_MARGIN;
+    float diffL = _sun.position.x - OUTER_MAP_SIZE - MAP_MARGIN;
+    float diffR = self.size.width - _sun.position.x - OUTER_MAP_SIZE - MAP_MARGIN;
+    
+    CGPoint diff = CGPointMake(diffL < 0 ? -diffL : diffR < 0 ? diffR : 0, diffT < 0 ? diffT : diffB < 0 ? -diffB : 0);
+
+    [self moveElementsBy:diff withDuration:0.15];
+    [self moveStarsBy:diff withDuration:0.15];
+    
+    scrollFirstX = 0;
+    scrollFirstY = 0;
+    scrollSunX = 0;
+    scrollSunY = 0;
+}
+//- (void)scroll:(CGPoint)diff {
+//    if (_sun.position.y - OUTER_MAP_SIZE + diff.y < MAP_MARGIN) {
+//        NSLog(@"B");
+//        diff.y -= _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
+//    }
+//    if (self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y < MAP_MARGIN) {
+//        NSLog(@"T");
+//        diff.y += self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y - MAP_MARGIN;
+//    }
+//    if (_sun.position.x - OUTER_MAP_SIZE + diff.x < MAP_MARGIN) {
+//        NSLog(@"L: %f", _sun.position.x + diff.x);
+//        diff.x -= _sun.position.x - OUTER_MAP_SIZE + diff.x - MAP_MARGIN;
+//    }
+//    if (self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x < MAP_MARGIN) {
+//        NSLog(@"R");
+//        diff.x += self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x - MAP_MARGIN;
+//    }
+//    [self moveElementsBy:diff withDuration:0];
+//    [self moveStarsBy:diff withDuration:0];
+//}
 
 - (void)initPauseButton {
     self.pauseButton = [[SKNode alloc] init];
@@ -462,7 +562,7 @@ const float MAX_STAR_SIZE = 50;
                         Unit *unit = [Unit node];
                         [unit createFor:planet points:value target:self.target color:[UIColor colorWithHexString:a[1]] level:(i > 2) ? 2 : i];
                         [units addObject:unit];
-                        [self addChild:unit];
+                        [_root addChild:unit];
                     }
                     points -= numOfIt * value;
                 }
@@ -587,17 +687,17 @@ const float MAX_STAR_SIZE = 50;
 }
 
 - (void)stageAlert {
-    float duration = 0.5;
-    inner_border.fillColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.15];
-    [inner_border runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
-        float percent = EaseOutCirc(elapsedTime / duration);
-        percent = (percent <= 0.5) ? percent * 2 : (1 - percent) * 2;
-        
-        inner_border.lineWidth = 3 * percent > 0.25 ? 3 * percent : 0.25;
-        inner_border.alpha = percent > 0.1 ? percent * 0.7 : 0.1;
-    }] completion:^{
-        inner_border.fillColor = nil;
-    }];
+//    float duration = 0.5;
+//    inner_border.fillColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:0.15];
+//    [inner_border runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//        float percent = EaseOutCirc(elapsedTime / duration);
+//        percent = (percent <= 0.5) ? percent * 2 : (1 - percent) * 2;
+//        
+//        inner_border.lineWidth = 3 * percent > 0.25 ? 3 * percent : 0.25;
+//        inner_border.alpha = percent > 0.1 ? percent * 0.7 : 0.1;
+//    }] completion:^{
+//        inner_border.fillColor = nil;
+//    }];
 }
 
 @end

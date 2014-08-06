@@ -39,3 +39,9 @@ static inline float EaseOutCirc(float t) {
 	t--;
 	return sqrtf(1 - powf(t, 2));
 }
+
+static inline float EaseOutCubic(float t) {
+    t /= 1;
+    t--;
+    return powf(t, 3) + 1;
+}

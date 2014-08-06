@@ -12,7 +12,7 @@
 const int MAX_RADIUS = 50;
 
 const int MAP_MARGIN = 10;
-const int INNER_MAP_SIZE = 768 / 3 - MAP_MARGIN;
+//const int INNER_MAP_SIZE = 768 / 3 - MAP_MARGIN;
 const int OUTER_MAP_SIZE = 768 / 2 - MAP_MARGIN;
 
 const int SUN_CATCHMENT_AREA = 21;

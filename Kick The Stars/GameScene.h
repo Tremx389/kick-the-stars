@@ -32,6 +32,8 @@ typedef enum {
 @property (nonatomic) MenuScreen *menu;
 @property (nonatomic) GameStage stage;
 
+@property (weak) SKNode *root;
+
 - (Planet *)buildFriendlyPlanetIn:(CGPoint)location;
 - (Planet *)getNearestPlanet:(CGPoint)location;
 - (void)selectPlanet:(Planet *)planet;
@@ -41,7 +43,12 @@ typedef enum {
 - (void)moveGalaxyBy:(CGPoint)center diff:(CGPoint)diff initPoint:(CGPoint)initPoint;
 
 - (void)deployUnits;
-- (void)scroll:(CGPoint)diff;
+
+- (void)startScroll:(CGPoint)location;
+- (void)scroll:(CGPoint)location;
+- (void)endScroll;
+
+//- (void)scroll:(CGPoint)diff;
 - (void)stageAlert;
 - (void)solarFlare;
 
