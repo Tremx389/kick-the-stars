@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		42944E231914E32B00800A66 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 42944E221914E32B00800A66 /* star.png */; };
+		8F0D48401992E41A00201D70 /* bg_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8F0D483F1992E41A00201D70 /* bg_3.jpg */; };
 		B5A018DA195D8A4B00FA6254 /* logo_22.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018CF195D8A4B00FA6254 /* logo_22.png */; };
 		B5A018DB195D8A4B00FA6254 /* logo_22.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018CF195D8A4B00FA6254 /* logo_22.png */; };
 		B5A018DC195D8A4B00FA6254 /* logo_29.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A018D0195D8A4B00FA6254 /* logo_29.png */; };
@@ -138,6 +139,7 @@
 
 /* Begin PBXFileReference section */
 		42944E221914E32B00800A66 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		8F0D483F1992E41A00201D70 /* bg_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg_3.jpg; sourceTree = "<group>"; };
 		B5A018CF195D8A4B00FA6254 /* logo_22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_22.png; path = icons/logo_22.png; sourceTree = "<group>"; };
 		B5A018D0195D8A4B00FA6254 /* logo_29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_29.png; path = icons/logo_29.png; sourceTree = "<group>"; };
 		B5A018D1195D8A4B00FA6254 /* logo_40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo_40.png; path = icons/logo_40.png; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				CE35C45D1950214D00AB25CF /* Textes & Fonts */,
 				CE067E951910F35F009331BC /* spark.png */,
 				42944E221914E32B00800A66 /* star.png */,
+				8F0D483F1992E41A00201D70 /* bg_3.jpg */,
 				E2BDEB2F198D91DE002B3CEE /* bg_2.jpg */,
 				CE35C3F619501FE000AB25CF /* bg.jpg */,
 				CE35C3F919501FE000AB25CF /* gradient.png */,
@@ -557,6 +560,7 @@
 				CE35C41E19501FE000AB25CF /* singleplayer_colors.plist in Resources */,
 				B5A018DE195D8A4B00FA6254 /* logo_40.png in Resources */,
 				CE35C46D1950379200AB25CF /* pause.wav in Resources */,
+				8F0D48401992E41A00201D70 /* bg_3.jpg in Resources */,
 				B5B26385195B6F5000C3EDA7 /* logo.atlas in Resources */,
 				CE35C42019501FE000AB25CF /* gradient.png in Resources */,
 				CE067E621910F1E4009331BC /* InfoPlist.strings in Resources */,

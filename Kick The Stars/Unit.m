@@ -11,6 +11,9 @@
 #import "CGVector+TC.h"
 
 @implementation Unit {
+    SKShapeNode *unit;
+    SKSpriteNode *lightEffect;
+    
     CGPoint lastPosition;
     BOOL fastMode;
 }
@@ -32,14 +35,14 @@
     CGPathAddLineToPoint(path, NULL, scale / 2, -scale / 2);
     CGPathCloseSubpath(path);
 
-    SKShapeNode *unit = [SKShapeNode node];
+    unit = [SKShapeNode node];
     unit.antialiased = NO;
     unit.lineWidth = 0.5;
     unit.strokeColor = c;
     unit.path = path;
     [self addChild:unit];
     
-    SKSpriteNode *lightEffect = [SKSpriteNode spriteNodeWithImageNamed:@"sun_light.png"];
+    lightEffect = [SKSpriteNode spriteNodeWithImageNamed:@"sun_light.png"];
     [lightEffect setScale:0.05];
     [lightEffect setAlpha:0.8];
     [lightEffect setColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:1]];
@@ -51,6 +54,11 @@
     self.physicsBody.allowsRotation = NO;
     
     CGPathRelease(path);
+}
+
+- (void)setGrey {
+    unit.strokeColor = [UIColor grayColor];
+    [lightEffect setColor:[UIColor grayColor]];
 }
 
 - (void)sync:(float)distance {

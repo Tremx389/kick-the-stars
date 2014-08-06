@@ -27,7 +27,7 @@ const float BUILD_WAIT = 0.01;
 
 const float MAX_STAR_SIZE = 50;
 
-const float SCROLL_SMOOTH = 250;
+const float SCROLL_SMOOTH = 50;
 
 @implementation GameScene {
     SKShapeNode /**inner_border, */*outer_border;
@@ -59,34 +59,25 @@ const float SCROLL_SMOOTH = 250;
 //    root = [[SKNode alloc] init];
     if (self = [super initWithSize:size]) {
         SKEffectNode *node = [SKEffectNode node];
-        bumpDistortion = [CIFilter filterWithName:@"CIHoleDistortion"];    // 1
-//        [bumpDistortion setValue:[CIVector vectorWithX:self.size.width/2 Y:self.siz] forKey:kCIInputCenterKey];
-//        [bumpDistortion setDefaults];                                                // 2
-//        [bumpDistortion setValue: result forKey: kCIInputImageKey];                    // 3
-        [bumpDistortion setValue:@100.0f forKey:kCIInputRadiusKey];                // 4
-//        [bumpDistortion setValue:@1.0f forKey:kCIInputScaleKey];                   // 5
-        
-//        result = [bumpDistortion valueForKey: kCIOutputImageKey];
-        
-//        CIFilter *blur = [CIFilter filterWithName:@"CIGaussianBlur" keysAndValues:@"inputRadius", @3.0f, nil];
-        
+        bumpDistortion = [CIFilter filterWithName:@"CIHoleDistortion"];
+        [bumpDistortion setValue:@75.0f forKey:kCIInputRadiusKey];
         [node setFilter:bumpDistortion];
         [self setRoot:node];
         [node setShouldCenterFilter:NO];
-        [node setShouldEnableEffects:YES];
+//        [node setShouldEnableEffects:YES];
         [self addChild:_root];
         
-        float duration = 30;
+//        float duration = 10;
 //        [_root runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
-//            NSNumber *radius = [NSNumber numberWithFloat:(elapsedTime/duration) * 3.0];
-////            [bumpDistortion setValue:radius forKey:kCIInputRadiusKey];
+//            NSNumber *radius = [NSNumber numberWithFloat:(elapsedTime/duration) * 100.0];
+//            [bumpDistortion setValue:radius forKey:kCIInputRadiusKey];
 //            [bumpDistortion setValue:radius forKey:kCIInputScaleKey];
 //            [bumpDistortion setValue: [CIVector vectorWithX:300 Y:150] forKey: kCIInputCenterKey];
 //        }]];
         
         SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"bg.jpg"];
         [background setPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))];
-        [background setScale:0.8];
+        [background setScale:0.5];
         [background setZPosition:-999];
         [_root addChild:background];
         
@@ -112,8 +103,9 @@ const float SCROLL_SMOOTH = 250;
 //        inner_border.strokeColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
 //        inner_border.alpha = 0.1;
 //        [self addChild:inner_border];
-        
-        _sun = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"sun" ofType:@"sks"]];
+  
+        _sun = [[SKNode alloc] init];
+//        _sun = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"sun" ofType:@"sks"]];
         SKSpriteNode *sunLight = [SKSpriteNode spriteNodeWithImageNamed:@"sun_light.png"];
         [sunLight setAlpha:0.5];
         [_sun addChild:sunLight];
@@ -274,9 +266,25 @@ const float SCROLL_SMOOTH = 250;
         SKAction *action = [SKAction moveBy:*((CGVector *)&diff) duration:duration];
         action.timingMode = SKActionTimingEaseInEaseOut;
         
-        [_sun runAction:action];
+        
+        CGPoint lastGalaxyCenter = _sun.position;
+        [_sun runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+            float percent = EaseInOut(elapsedTime / duration);
+            _sun.position = CGPointMake(lastGalaxyCenter.x + diff.x * percent, lastGalaxyCenter.y + diff.y * percent);
+            [bumpDistortion setValue:[CIVector vectorWithX:_sun.position.x * 2 + 30 Y:_sun.position.y * 2 + 170] forKey:kCIInputCenterKey];
+            
+        }]];
         [outer_border runAction:action];
 //        [inner_border runAction:action];
+        
+//        CGPoint distortionStartPos = _sun.position;
+//        [self runAction:[SKAction customActionWithDuration:duration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//            [bumpDistortion setValue:[CIVector vectorWithX:_sun.position.x * 2 + 30 Y:_sun.position.y * 2 + 170] forKey:kCIInputCenterKey];
+//        }]];
+        
+        for (Unit *unit in units) {
+            [unit runAction:action];
+        }
         for (Planet *planet in _planets) {
             [planet runAction:action];
         }
@@ -290,6 +298,8 @@ const float SCROLL_SMOOTH = 250;
         for (Planet *planet in _planets) {
             planet.position = CGPointMake(planet.position.x + diff.x, planet.position.y + diff.y);
         }
+        
+        [bumpDistortion setValue:[CIVector vectorWithX:_sun.position.x * 2 + 30 Y:_sun.position.y * 2 + 170] forKey:kCIInputCenterKey];
     }
 }
 
@@ -331,41 +341,41 @@ const float SCROLL_SMOOTH = 250;
 - (void)scroll:(CGPoint)location {
     CGPoint diff = CGPointMake(scrollSunX - _sun.position.x + location.x - scrollFirstX,
                                scrollSunY - _sun.position.y + location.y - scrollFirstY);
-//    float diffB = _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
-//    float diffT = self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y - MAP_MARGIN;
-//    float diffL = _sun.position.x - OUTER_MAP_SIZE + diff.x - MAP_MARGIN;
-//    float diffR = self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x - MAP_MARGIN;
-//    if (diffB < 0) {
-//        diff.y -= diffB;
-//        if (ABS(diffB) < SCROLL_SMOOTH) {
-//            diff.y -= powf(EaseOutCubic((ABS(diffB) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
-//        } else {
-//            diff.y -= SCROLL_SMOOTH;
-//        }
-//    } else if (diffT < 0) {
-//        diff.y += diffT;
-//        if (ABS(diffT) < SCROLL_SMOOTH) {
-//            diff.y += powf(EaseOutCubic((ABS(diffT) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
-//        } else {
-//            diff.y += SCROLL_SMOOTH;
-//        }
-//    }
-//    if (diffL < 0) {
-//        diff.x -= diffL;
-//        if (ABS(diffL) < SCROLL_SMOOTH) {
-//            diff.x -= powf(EaseOutCubic((ABS(diffL) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
-//        } else {
-//            diff.x -= SCROLL_SMOOTH;
-//        }
-//    } else if (diffR < 0) {
-//        diff.x += diffR;
-//        if (ABS(diffR) < SCROLL_SMOOTH) {
-//            diff.x += powf(EaseOutCubic((ABS(diffR) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
-//        } else {
-//            diff.x += SCROLL_SMOOTH;
-//        }
-//    }
-//    
+    float diffB = _sun.position.y - OUTER_MAP_SIZE + diff.y - MAP_MARGIN;
+    float diffT = self.size.height - _sun.position.y - OUTER_MAP_SIZE - diff.y - MAP_MARGIN;
+    float diffL = _sun.position.x - OUTER_MAP_SIZE + diff.x - MAP_MARGIN;
+    float diffR = self.size.width - _sun.position.x - OUTER_MAP_SIZE - diff.x - MAP_MARGIN;
+    if (diffB < 0) {
+        diff.y -= diffB;
+        if (ABS(diffB) < SCROLL_SMOOTH) {
+            diff.y -= powf(EaseOutCubic((ABS(diffB) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
+        } else {
+            diff.y -= SCROLL_SMOOTH;
+        }
+    } else if (diffT < 0) {
+        diff.y += diffT;
+        if (ABS(diffT) < SCROLL_SMOOTH) {
+            diff.y += powf(EaseOutCubic((ABS(diffT) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
+        } else {
+            diff.y += SCROLL_SMOOTH;
+        }
+    }
+    if (diffL < 0) {
+        diff.x -= diffL;
+        if (ABS(diffL) < SCROLL_SMOOTH) {
+            diff.x -= powf(EaseOutCubic((ABS(diffL) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
+        } else {
+            diff.x -= SCROLL_SMOOTH;
+        }
+    } else if (diffR < 0) {
+        diff.x += diffR;
+        if (ABS(diffR) < SCROLL_SMOOTH) {
+            diff.x += powf(EaseOutCubic((ABS(diffR) / SCROLL_SMOOTH)), 2) * SCROLL_SMOOTH;
+        } else {
+            diff.x += SCROLL_SMOOTH;
+        }
+    }
+    
     [self moveElementsBy:diff withDuration:0];
     [self moveStarsBy:diff withDuration:0];
     
@@ -373,13 +383,11 @@ const float SCROLL_SMOOTH = 250;
 //    CGAffineTransform *moveTransform = CGAffineTransformMakeTranslation(diff.x, diff.y);
     
     
-    CIFilter *move = [CIFilter filterWithName:@"CIAffineTransform"];
+//    CIFilter *move = [CIFilter filterWithName:@"CIAffineTransform"];
 //    [move setValue:[CIVector vectorWithX:_sun.position.x Y:_sun.position.y] forKey:kCIInputCenterKey];
 //    [move setValue:clouds forKey:@"inputImage"];
 //    [move setValue:moveTransform forKey:@"inputTransform"];
 //    clouds = [move valueForKey:@"outputImage"];
-    
-    [bumpDistortion setValue:[CIVector vectorWithX:_sun.position.x * 3.5 Y:_sun.position.y * 3.5] forKey:kCIInputCenterKey];
 }
 
 - (void)endScroll {
@@ -477,6 +485,7 @@ const float SCROLL_SMOOTH = 250;
     for (int i = 0; i < units.count; i++) {
         Unit *unit = [units objectAtIndex:i];
         float distance = distanceBetween(unit.position, unit.target.position) - unit.target.radius - unit.radius;
+        float sunDistance = distanceBetween(unit.position, _sun.position);
         if (distance < 2) {
             [unit.target hitBy:unit];
             [unit removeAllChildren];
@@ -484,11 +493,13 @@ const float SCROLL_SMOOTH = 250;
             [units removeObject:unit];
             i--;
         } else {
-            [unit sync:distance];
+            if (sunDistance <= OUTER_MAP_SIZE) {
+                [unit sync:distance];
+            } else {
+                [unit setGrey];
+            }
         }
-        
-        float sunDistance = distanceBetween(unit.position, _sun.position);
-        if (sunDistance <= SUN_CATCHMENT_AREA || sunDistance > OUTER_MAP_SIZE) {
+        if (sunDistance <= SUN_CATCHMENT_AREA || (sunDistance > OUTER_MAP_SIZE && (unit.position.x < 0 || unit.position.x > self.size.width || unit.position.y < 0 || unit.position.y > self.size.height))) {
             [self managePointsBy:unit.points];
             [unit removeAllChildren];
             [unit removeFromParent];

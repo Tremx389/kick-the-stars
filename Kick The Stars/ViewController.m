@@ -21,8 +21,8 @@
 
 @implementation ViewController{
     GameScene *gS;
-
-    // tap
+    
+    // longPress
     Planet *building;
     
     // pan
@@ -35,7 +35,7 @@
     
     SKView *skView = (SKView *)self.view;
     skView.showsFPS = YES;
-    skView.showsPhysics = YES;
+//    skView.showsPhysics = YES;
 //    skView.showsNodeCount = YES;
 //    skView.showsDrawCount = YES;
     
@@ -121,9 +121,43 @@
                     [gS stageAlert];
                 }
             }
-        } else if (recogziner.state == UIGestureRecognizerStateEnded && building) {
-            [building finishLoading:gS.sun];
-            building = nil;
+        } else if (recogziner.state == UIGestureRecognizerStateChanged){
+            if (distanceBetween(building.position, location) > MAX_RADIUS * 2 / 3) {
+                if (building && !initial) {
+                    [building finishLoading:gS.sun];
+                    initial = building;
+                    building = nil;
+                }
+                Planet *p = [gS getNearestPlanet:location];
+                if (p && p != gS.sun && p != initial) {
+                    if (temporarilySelected && temporarilySelected != p) {
+                        [temporarilySelected setDeselected];
+                    }
+                    if (!p.selected) {
+                        temporarilySelected = p;
+                    }
+                    [p removeAim];
+                    gS.target = p;
+                    [p setSelected];
+                } else {
+                    [initial search:location];
+                }
+            }
+        } else if (recogziner.state == UIGestureRecognizerStateEnded) {
+            if (initial) {
+                if (gS.target) {
+                    [gS deployUnits];
+                }
+                if (temporarilySelected) {
+                    temporarilySelected = nil;
+                }
+                [initial endSearch];
+                initial = nil;
+            }
+            if (building) {
+                [building finishLoading:gS.sun];
+                building = nil;
+            }
         }
     }
 }

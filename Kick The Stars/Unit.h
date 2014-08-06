@@ -20,5 +20,6 @@
 
 - (void)createFor:(Planet *)planet points:(float)points target:(Planet *)target color:(UIColor *)c level:(NSInteger)level;
 - (void)sync:(float)distance;
+- (void)setGrey;
 
 @end
