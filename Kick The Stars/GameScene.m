@@ -16,7 +16,7 @@
 
 #import "UIColor+HEX.h"
 
-const float STAR_DISTANCE = 0.666;
+const float STAR_DISTANCE = 0.1;
 
 const int DEFAULT_POINTS = 801;
 
@@ -27,10 +27,10 @@ const float BUILD_WAIT = 0.01;
 
 const float MAX_STAR_SIZE = 50;
 
-const float SCROLL_SMOOTH = 50;
+const float SCROLL_SMOOTH = 150;
 
 @implementation GameScene {
-    SKShapeNode /**inner_border, */*outer_border;
+    SKShapeNode /**inner_border, */*outer_border, *pauseCircle;
     SKNode *pauseLine1, *pauseLine2;
     SKLabelNode *scoreLabel;
     
@@ -60,7 +60,10 @@ const float SCROLL_SMOOTH = 50;
     if (self = [super initWithSize:size]) {
         SKEffectNode *node = [SKEffectNode node];
         bumpDistortion = [CIFilter filterWithName:@"CIHoleDistortion"];
-        [bumpDistortion setValue:@75.0f forKey:kCIInputRadiusKey];
+        [bumpDistortion setValue:@65.0f forKey:kCIInputRadiusKey];
+//        [bumpDistortion setValue:@60.0f forKey:kCIInputAngleKey];
+//        bumpDistortion = [CIFilter filterWithName:@"CIHoleDistortion"];
+//        [bumpDistortion setValue:@75.0f forKey:kCIInputRadiusKey];
         [node setFilter:bumpDistortion];
         [self setRoot:node];
         [node setShouldCenterFilter:NO];
@@ -75,17 +78,20 @@ const float SCROLL_SMOOTH = 50;
 //            [bumpDistortion setValue: [CIVector vectorWithX:300 Y:150] forKey: kCIInputCenterKey];
 //        }]];
         
-        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"bg.jpg"];
+        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"background.jpg"];
         [background setPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))];
-        [background setScale:0.5];
+        [background setScale:0.36];
         [background setZPosition:-999];
         [_root addChild:background];
         
-        for (int i = 0; i < 70; i++) {
-            [self drawStarMin:2 max:7 flashing:0.7];
+//        for (int i = 0; i < 70; i++) {
+//            [self drawStarMin:2 max:7 flashing:0.7];
+//        }
+        for (int i = 0; i < 25; i++) {
+            [self drawStarMin:5 max:10 flashing:0.6];
         }
-        for (int i = 0; i < 15; i++) {
-            [self drawStarMin:7 max:10 flashing:0.4];
+        for (int i = 0; i < 5; i++) {
+            [self drawStarMin:11 max:17 flashing:0.4];
         }
         for (int i = 0; i < 3; i++) {
             [self drawStarMin:18 max:22 flashing:0.2];
@@ -106,13 +112,28 @@ const float SCROLL_SMOOTH = 50;
   
         _sun = [[SKNode alloc] init];
 //        _sun = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSBundle mainBundle] pathForResource:@"sun" ofType:@"sks"]];
-        SKSpriteNode *sunLight = [SKSpriteNode spriteNodeWithImageNamed:@"sun_light.png"];
-        [sunLight setAlpha:0.5];
-        [_sun addChild:sunLight];
+//        SKSpriteNode *sunLight = [SKSpriteNode spriteNodeWithImageNamed:@"sun_light.png"];
+//        [sunLight setAlpha:0.5];
+//        [_sun addChild:sunLight];
         [_root addChild:_sun];
 
         [self initPauseButton];
 //        [self initMenu];
+        
+//        [self runAction:[SKAction repeatActionForever:[SKAction customActionWithDuration:10 actionBlock:^(SKNode *node, CGFloat elapsedTime){
+//            for (SKSpriteNode *star in stars) {
+//                float distance = distanceBetween(_sun.position, star.position);
+//                
+//                if (distance > SUN_CATCHMENT_AREA) {
+//                    float boost = (1 - EaseOutCubic(distance / self.size.height)) * 5;
+//                    star.position = pointInCircle(star.position, (star.size.width / MAX_STAR_SIZE * STAR_DISTANCE) * boost, radiansBetween(star.position, _sun.position));
+//                } else {
+//                    [star runAction:[SKAction scaleTo:0 duration:1] completion:^{
+//                        
+//                    }];
+//                }
+//            }
+//        }]]];
         
         scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Oranienbaum-Regular"];
         scoreLabel.fontSize = 25;
@@ -195,7 +216,7 @@ const float SCROLL_SMOOTH = 50;
 }
 
 - (Planet *)getNearestPlanet:(CGPoint)location {
-    float distance = MAX_RADIUS * 2 / 3;
+    float distance = MAX_RADIUS;
     Planet *nearestPlanet;
     for (Planet *planet in _planets) {
         float d = distanceBetween(location, planet.position);
@@ -596,11 +617,21 @@ const float SCROLL_SMOOTH = 50;
     float duration = 0.2;
     
     CGPoint line1Pos = CGPointMake(diff, 0), line2Pos = CGPointMake(-diff, 0);
-    
+
     [self runAction:[SKAction playSoundFileNamed:@"pause.wav" waitForCompletion:NO]];
     [self.pauseButton runAction:[SKAction sequence:@[[SKAction scaleTo:2 duration:duration / 2], [SKAction scaleTo:1 duration:duration / 2]]]];
     if (!self.view.paused) {
-        __block float minCompletions = 3, iCompletions = 0;
+        __block float minCompletions = 4, iCompletions = 0;
+        
+        pauseCircle = [SKShapeNode node];
+        pauseCircle.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-25, -25, 25 * 2, 25 * 2)].CGPath;
+        pauseCircle.lineWidth = 2;
+        pauseCircle.strokeColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.6];
+        pauseCircle.alpha = 0;
+        [pauseCircle runAction:[SKAction sequence:@[[SKAction waitForDuration:duration / 2], [SKAction fadeAlphaBy:1 duration:duration / 2]]] completion:^{
+            iCompletions++; if (iCompletions == minCompletions) { _stage = PAUSED; self.view.paused = YES;}
+        }];
+        [self.pauseButton addChild:pauseCircle];
         
         _menu = [[MenuScreen node] initPauseMenuIn:self];
         _menu.zPosition = 1;
@@ -619,6 +650,8 @@ const float SCROLL_SMOOTH = 50;
         }];
     } else {
         self.view.paused = NO;
+        
+        [pauseCircle removeFromParent];
         
         [pauseLine1 runAction:[SKAction group:@[[SKAction rotateByAngle:M_PI / 180 * -45 duration:duration], [SKAction moveToX: line2Pos.x duration:duration]]]];
         [pauseLine2 runAction:[SKAction group:@[[SKAction rotateByAngle:M_PI / 180 * 45 duration:duration], [SKAction moveToX:line1Pos.x duration:duration]]]];
